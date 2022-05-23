@@ -43,6 +43,23 @@ app.post('/api/meals', async(req,res) => {
     }
 })
 
+//update one
+app.patch('/api/meals/:id', async(req,res) => {
+    try {
+        const { name, ingredients, prep_time } = req.body
+        const meal = await pool.query('SELECT * FROM meals WHERE meal_id = $1', [req.params.id])
+        const obj = {
+            name: name || meal.rows[0].name,
+            ingredients: ingredients || meal.rows[0].ingredients,
+            prep_time: prep_time || meal.rows[0].prep_time
+        }
+        const updatedMeal = await pool.query('UPDATE meals SET name = $1, ingredients = $2, prep_time = $3 WHERE meal_id = $4 RETURNING *;', [obj.name, obj.ingredients, obj.prep_time, req.params.id])
+        res.json(updatedMeal.rows)
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
 //create server
 app.listen(PORT, () => {
     console.log('listening on port:', PORT)
