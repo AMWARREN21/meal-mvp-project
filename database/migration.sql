@@ -7,6 +7,6 @@ CREATE DATABASE meal_tracker;
 CREATE TABLE meals (
     meal_id SERIAL PRIMARY KEY,
     name varchar(50) NOT NULL,
-    description varchar(255),
+    ingredients varchar(255),
     prep_time int
 );
