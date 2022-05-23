@@ -1,0 +1,1 @@
+INSERT INTO meals (name, ingredients, prep_time) VALUES ('Spaghetti with Sausages', 'Spaghetti noodles, Traditional Sauce, Ground Beef, Sausages', 40);
