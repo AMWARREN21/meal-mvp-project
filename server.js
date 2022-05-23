@@ -14,8 +14,8 @@ app.get('/api/meals', async(req,res) => {
     try {
         const data = await pool.query('SELECT * FROM meals;')
         res.json(data.rows)
-    } catch (error) {
-        console.error(error.message)
+    } catch (err) {
+        console.error(err.message)
     }
 })
 
@@ -24,8 +24,22 @@ app.get('/api/meals/:id', async(req,res) => {
     try {
         const data = await pool.query('SELECT * FROM meals WHERE meal_id = $1;', [req.params.id])
         res.json(data.rows)
-    } catch (error) {
-        console.error(error.message)
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
+//post one
+app.post('/api/meals', async(req,res) => {
+    try {
+        if (![req.body.name, req.body.ingredients, req.body.prep_time].includes(undefined)) {
+            const data = await pool.query('INSERT INTO meals (name, ingredients, prep_time) VALUES ($1, $2, $3);', [req.body.name, req.body.ingredients, req.body.prep_time])
+            res.json(data.rows)
+        } else {
+            res.send('Information is missing')
+        }
+    } catch (err) {
+        console.error(err.message)
     }
 })
 
