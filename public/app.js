@@ -1,5 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
     homePage()
+    //shortPrep()
 })
 
 const homePage = async () => {
@@ -7,6 +8,12 @@ const homePage = async () => {
     let data = await result.json()
     createDiv(data.length)
     divContent(data)
+}
+
+const shortPrep = async () => {
+    let result = await fetch('http://localhost:8000/api/meals')
+    let data = await result.json()
+    shortPrepData(data)
 }
 
 const createDiv = (num) => {
@@ -34,5 +41,35 @@ const divContent = (data) => {
         h1.appendChild(p)
         card[i].appendChild(h1)
     }
+}
+
+const shortPrepData = (data) => {
+    let obj = {};
+    let arr = [];
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].prep_time < 60) {
+            obj.name = data[i].name
+            obj.ingredients = data[i].ingredients
+            obj.prep_time = data[i].prep_time
+            arr.push(obj)
+        }
+    }
+    createDiv(data.length)
+    divContent(data)
+}
+
+const mediumPrepData = (data) => {
+    let obj = {};
+    let arr = [];
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].prep_time >= 60 && data[i].prep_time < 120) {
+            obj.name = data[i].name
+            obj.ingredients = data[i].ingredients
+            obj.prep_time = data[i].prep_time
+            arr.push(obj)
+        }
+    }
+    createDiv(data.length)
+    divContent(data)
 }
 
