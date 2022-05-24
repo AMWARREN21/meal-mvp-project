@@ -2,11 +2,6 @@ window.addEventListener('DOMContentLoaded', () => {
     homePage()
 })
 
-const home = document.querySelector('.home')
-const short = document.querySelector('#short')
-const medium = document.querySelector('#medium')
-const long = document.querySelector('#long')
-
 const GET = async () => {
     let result = await fetch('http://localhost:8000/api/meals')
     let data = await result.json()
@@ -79,7 +74,6 @@ const longPrepData = (data) => {
     divContent(arr)
 }
 
-
 const createDiv = (num) => {
     let content = document.querySelector('.container')
     for (let i = 1; i <= num; i++) {
@@ -108,26 +102,68 @@ const divContent = (data) => {
     }
 }
 
+const short = document.querySelector('#short')
 short.addEventListener('click', () => {
     let container = document.querySelector('.container')
     container.innerHTML = ''
     shortPrep()
 })
 
+const medium = document.querySelector('#medium')
 medium.addEventListener('click', () => {
     let container = document.querySelector('.container')
     container.innerHTML = ''
     mediumPrep()
 })
 
+const long = document.querySelector('#long')
 long.addEventListener('click', () => {
     let container = document.querySelector('.container')
     container.innerHTML = ''
     longPrep()
 })
 
+const home = document.querySelector('#home')
 home.addEventListener('click', () => {
     let container = document.querySelector('.container')
     container.innerHTML = ''
     homePage()
 })
+
+const create = document.querySelector('#create')
+const modal = document.getElementById("myModal")
+create.addEventListener('click', () => {
+    modal.style.display = "block";
+})
+
+const span = document.getElementsByClassName("close")[0];
+span.addEventListener('click', () => {
+    modal.style.display= "none";
+})
+
+const submit = document.getElementById("submit")
+submit.addEventListener('click', () => {
+    const meal = document.querySelector('#meal-name').value
+    const ingredients = document.querySelector('#ingredients').value
+    const prep_time = document.querySelector('#prep-time').value
+    POST(meal, ingredients, prep_time)
+    reload()
+})
+
+const POST = async (meal, ingredients, prep_time) => {
+
+    const obj = {
+        "name": meal,
+        "ingredients": ingredients,
+        "prep_time": prep_time
+    }
+
+    const meals = await fetch('http://localhost:8000/api/meals', 
+    {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=UTF-8'},
+        body: JSON.stringify(obj)
+    })
+}
+
+
