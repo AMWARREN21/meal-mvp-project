@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+}
+
+.page {
+    position: relative;
+    min-height: 100vh;
+}
+
+.header {
+    background-color: black;
+    padding: .8rem;
+}
+
+.header > #title {
+    color: white;
+    font-family: cursive;
+    font-size: 1rem
+}
+
+.header > .home {
+    position: absolute;
+    right: 20px;
+    top: 25px
+}
+
+.sidebar {
+    height: 10rem;
+    width: 12vw;
+    float: left;
+}
+
+.container {
+    padding-top: 10px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.container > .card {
+    height: 23rem;
+    width: 22rem;
+    text-align: center;   
+    padding: 5px;
+    margin: 15px 15px;
+    -webkit-box-shadow: 2px 3px 8px rgb(181, 181, 181);
+    -moz-box-shadow: 2px 3px 8px rgb(181, 181, 181);
+    box-shadow: 2px 3px 8px rgb(181, 181, 181);
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    font-family: cursive;
+}
+
+.footer > .slogan {
+    text-align: center;
+    color: white;
+}
