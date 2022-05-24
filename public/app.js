@@ -2,6 +2,7 @@ window.addEventListener('DOMContentLoaded', () => {
     homePage()
 })
 
+const home = document.querySelector('.home')
 const short = document.querySelector('#short')
 const medium = document.querySelector('#medium')
 const long = document.querySelector('#long')
@@ -123,4 +124,10 @@ long.addEventListener('click', () => {
     let container = document.querySelector('.container')
     container.innerHTML = ''
     longPrep()
+})
+
+home.addEventListener('click', () => {
+    let container = document.querySelector('.container')
+    container.innerHTML = ''
+    homePage()
 })
