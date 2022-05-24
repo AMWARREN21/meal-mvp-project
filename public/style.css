@@ -12,26 +12,49 @@ body {
     padding: .8rem;
 }
 
-.header > #title {
+.header > .main {
+    position: absolute;
     color: white;
     font-family: cursive;
     font-size: 1rem
 }
 
-.header > .home {
-    position: absolute;
-    right: 20px;
-    top: 25px
+.header > .buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    color: white;
+    font-family: cursive;
+    font-size: .5rem;
 }
 
-.sidebar {
-    height: 10rem;
-    width: 12vw;
-    float: left;
+#short:hover {
+    cursor: pointer;
+    color: rgb(165, 165, 165) 
+}
+
+#medium:hover {
+    cursor: pointer;
+    color: rgb(165, 165, 165) 
+}
+
+#long:hover {
+    cursor: pointer;
+    color: rgb(165, 165, 165) 
+}
+
+#home:hover {
+    cursor: pointer;
+    color: rgb(165, 165, 165) 
+}
+
+#create:hover {
+    cursor: pointer;
+    color: rgb(165, 165, 165) 
 }
 
 .container {
-    padding-top: 10px;
+    padding-top: 30px;
     height: auto;
     display: flex;
     flex-direction: row;
@@ -42,12 +65,20 @@ body {
 .container > .card {
     height: 23rem;
     width: 22rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     text-align: center;   
     padding: 5px;
     margin: 15px 15px;
     -webkit-box-shadow: 2px 3px 8px rgb(181, 181, 181);
     -moz-box-shadow: 2px 3px 8px rgb(181, 181, 181);
     box-shadow: 2px 3px 8px rgb(181, 181, 181);
+}
+
+.card:hover {
+    cursor: pointer;
+    -webkit-box-shadow: 2px 3px 8px rgb(80, 80, 80);
+    -moz-box-shadow: 2px 3px 8px rgb(80, 80, 80);
+    box-shadow: 2px 3px 8px rgb(80, 80, 80);
 }
 
 .footer {
