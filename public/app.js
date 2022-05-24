@@ -1,19 +1,59 @@
 window.addEventListener('DOMContentLoaded', () => {
     homePage()
     //shortPrep()
+    //mediumPrep()
 })
 
-const homePage = async () => {
+const GET = async () => {
     let result = await fetch('http://localhost:8000/api/meals')
     let data = await result.json()
+    return data
+}
+
+const homePage = async () => {
+    const data = await GET()
     createDiv(data.length)
     divContent(data)
 }
 
 const shortPrep = async () => {
-    let result = await fetch('http://localhost:8000/api/meals')
-    let data = await result.json()
+    const data = await GET()
     shortPrepData(data)
+}
+
+const shortPrepData = (data) => {
+    let obj = {};
+    let arr = [];
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].prep_time < 60) {
+            obj.name = data[i].name
+            obj.ingredients = data[i].ingredients
+            obj.prep_time = data[i].prep_time
+            arr.push(obj)
+        }
+    }
+    createDiv(arr.length)
+    divContent(arr)
+}
+
+const mediumPrep = async () => {
+    const data = await GET()
+    mediumPrepData(data)
+}
+
+const mediumPrepData = (data) => {
+    let obj = {};
+    let arr = [];
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].prep_time >= 60 && data[i].prep_time < 120) {
+            obj.name = data[i].name
+            obj.ingredients = data[i].ingredients
+            obj.prep_time = data[i].prep_time
+            arr.push(obj)
+        }
+    }
+    createDiv(arr.length)
+    divContent(arr)
 }
 
 const createDiv = (num) => {
@@ -41,35 +81,5 @@ const divContent = (data) => {
         h1.appendChild(p)
         card[i].appendChild(h1)
     }
-}
-
-const shortPrepData = (data) => {
-    let obj = {};
-    let arr = [];
-    for (let i = 0; i < data.length; i++) {
-        if (data[i].prep_time < 60) {
-            obj.name = data[i].name
-            obj.ingredients = data[i].ingredients
-            obj.prep_time = data[i].prep_time
-            arr.push(obj)
-        }
-    }
-    createDiv(data.length)
-    divContent(data)
-}
-
-const mediumPrepData = (data) => {
-    let obj = {};
-    let arr = [];
-    for (let i = 0; i < data.length; i++) {
-        if (data[i].prep_time >= 60 && data[i].prep_time < 120) {
-            obj.name = data[i].name
-            obj.ingredients = data[i].ingredients
-            obj.prep_time = data[i].prep_time
-            arr.push(obj)
-        }
-    }
-    createDiv(data.length)
-    divContent(data)
 }
 
