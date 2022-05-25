@@ -94,7 +94,7 @@ const createDiv = (num) => {
         let div = document.createElement('div')
         div.id = i
         div.className = 'meal'
-        
+
         span.appendChild(div)
         content.appendChild(span)
     }
@@ -102,7 +102,6 @@ const createDiv = (num) => {
 
 const divContent = (data) => {
     let meal = document.querySelectorAll('.meal')
-    eventListener(meal)
     for (let i = 0; i < meal.length; i++) {
         let current = meal[i]
         let h1 = document.createElement('h1')
