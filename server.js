@@ -61,9 +61,9 @@ app.patch('/api/meals/:id', async(req,res) => {
 });
 
 //delete one
-app.delete('/api/meals/:id', async(req,res) => {
+app.delete('/api/meals/:name', async(req,res) => {
     try {
-        const deleted = await pool.query('DELETE FROM meals WHERE meal_id = $1;', [req.params.id])
+        const deleted = await pool.query('DELETE FROM meals WHERE name = $1;', [req.params.name])
         res.send('Meal has been deleted')
     } catch (err) {
         console.error(err.message)
