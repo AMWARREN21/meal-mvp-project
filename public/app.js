@@ -1,6 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
     homePage()
-    GET()
 })
 
 const GET = async () => {
@@ -23,13 +22,14 @@ const POST = async (meal, ingredients, prep_time) => {
     })
 }
 
-const PATCH = async (meal, ingredients, prep_time, index) => {
+const PATCH = async (meal, ingredients, prep_time) => {
     const obj = {
         "name": meal,
         "ingredients": ingredients,
         "prep_time": prep_time
     }
-    const meals = await fetch(`http://localhost:8000/api/meals/${index}`, 
+    console.log(obj)
+    const meals = await fetch(`http://localhost:8000/api/meals/${meal}`, 
     {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json; charset=UTF-8'},
@@ -48,6 +48,7 @@ const DELETE = async (name) => {
 
 const homePage = async () => {
     const data = await GET()
+    // console.log(await PATCH('mean', 'moon', 31))
     createDiv(data.length)
     divContent(data)
     editMeal(document.querySelectorAll('#edit'))
@@ -127,7 +128,7 @@ const createDiv = (num) => {
         content.appendChild(cardContainer)
     }
     let holder = document.querySelectorAll('.holder')
-    addOverlay(holder)
+    createOverlay(holder)
 }
 
 const divContent = (data) => {
@@ -179,24 +180,18 @@ home.addEventListener('click', () => {
 const create = document.querySelector('#create')
 const modal = document.getElementById('myModal')
 create.addEventListener('click', (e) => {
-    addMeal(e);
+    submitM(e);
 })
 
 const span = document.getElementsByClassName("close")[0];
 span.addEventListener('click', () => {
+    document.querySelector('#meal-name').value = ''
+    document.querySelector('#ingredients').value = ''
+    document.querySelector('#prep-time').value = ''
     modal.style.display= "none";
 })
 
-const submit = document.getElementById("submit")
-submit.addEventListener('click', () => {
-    const meal = document.querySelector('#meal-name').value
-    const ingredients = document.querySelector('#ingredients').value
-    const prep_time = document.querySelector('#prep-time').value
-    POST(meal, ingredients, prep_time)
-    reload()
-})
-
-const addOverlay = (holder) => {
+const createOverlay = (holder) => {
     holder.forEach(elem => {
         let overlay = document.createElement('div')
         let edit = document.createElement('div')
@@ -219,26 +214,56 @@ const addOverlay = (holder) => {
 }
 
 const editMeal = (meal) => {
-    meal.forEach(meals => {
-        meals.addEventListener('click', (e) => {
-            const div = meals.parentNode.parentNode.childNodes[0]
-            values(div)
-            console.log(e.target)
-            //console.log(document.getElementById('1').childNodes[0])
+    meal.forEach(elem => {
+        elem.addEventListener('click', (e) => {
             const modal = document.getElementById("myModal")
             modal.style.display = "block";
+            confirmButton()
+            const name = e.target.parentNode.parentNode.childNodes[0].childNodes[0].textContent
+            const ing = e.target.parentNode.parentNode.childNodes[0].childNodes[1].textContent
+            const prep = e.target.parentNode.parentNode.childNodes[0].childNodes[2].textContent
+            parsingMeal(name, ing, prep)
+            submitEdits()
         })
     })
 
 }
 
-const values = (div) => {
-    const name = document.getElementById('1').childNodes[0].textContent
-    const ingredients = document.getElementById('1').childNodes[1].textContent
-    const prepTime = document.getElementById('1').childNodes[2].textContent
+const confirmButton = () => {
+    const confirm = document.getElementById('confirm')
+    const submit = document.getElementById('submit')
+    submit.classList.add('confirm')
+    confirm.classList.remove('confirm')
+}
+
+const submitButton = () => {
+    const confirm = document.getElementById('confirm')
+    const submit = document.getElementById('submit')
+    confirm.classList.add('confirm')
+    submit.classList.remove('confirm')
+}
+
+const parsingMeal = (name, ing, prep) => {
+
+    ing = ing.split(' ')
+    for (let i = 0; i < ing.length; i++) {
+        if (ing[i] === 'Ingredients:') {
+            delete ing[i]
+        }
+        ing.join(' ')
+    }
+
+    prep = prep.split(' ')
+    for (let i = 0; i < prep.length; i++) {
+        if (prep[i] === 'Prep' || prep[i] === 'Time:' || prep[i] === 'mins') {
+            delete prep[i]
+        }
+        prep.join(' ')
+    }
+
     document.querySelector('#meal-name').value = name
-    document.querySelector('#ingredients').value = ingredients
-    document.querySelector('#prep-time').value = prepTime
+    document.querySelector('#ingredients').value = ing.join(' ')
+    document.querySelector('#prep-time').value = prep.join(' ')
 }
 
 const deleteMeal = (meal) => {
@@ -251,18 +276,31 @@ const deleteMeal = (meal) => {
     })
 }
 
-// const addMeal = () => {
-//     const create = document.querySelector('#create')
-//     const modal = document.getElementById("myModal")
-//     create.addEventListener('click', () => {
-//     modal.style.display = "block"
-// })
-// }
-
-//create a function for creating a meal
-//add
-const addMeal = (e) => {
+const submitM = (e) => {
     console.log(e.currentTarget)
     const modal = document.getElementById('myModal')
     modal.style.display = 'block'
+    submitButton()
+    addMeal()
+}
+
+const submitEdits = () => {
+    const confirm = document.getElementById("confirm")
+    confirm.addEventListener('click', (e) => {
+        const meal = document.querySelector('#meal-name').value
+        const ingredients = document.querySelector('#ingredients').value
+        const prep_time = document.querySelector('#prep-time').value
+        PATCH(meal, ingredients, prep_time)
+        {location.reload()}
+    })
+}
+
+const addMeal = () => {
+    const submit = document.getElementById("submit")
+    submit.addEventListener('click', (e) => {
+        const meal = document.querySelector('#meal-name').value
+        const ingredients = document.querySelector('#ingredients').value
+        const prep_time = document.querySelector('#prep-time').value
+        POST(meal, ingredients, prep_time)
+    })
 }
