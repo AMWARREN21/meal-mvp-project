@@ -44,7 +44,7 @@ app.post('/api/meals', async(req,res) => {
 });
 
 //update one
-app.patch('/api/meals/:id', async(req,res) => {
+app.patch('/api/meals/:name', async(req,res) => {
     try {
         const { name, ingredients, prep_time } = req.body
         const meal = await pool.query('SELECT * FROM meals WHERE meal_id = $1', [req.params.id])
@@ -53,7 +53,7 @@ app.patch('/api/meals/:id', async(req,res) => {
             ingredients: ingredients || meal.rows[0].ingredients,
             prep_time: prep_time || meal.rows[0].prep_time
         }
-        const updatedMeal = await pool.query('UPDATE meals SET name = $1, ingredients = $2, prep_time = $3 WHERE meal_id = $4 RETURNING *;', [obj.name, obj.ingredients, obj.prep_time, req.params.id])
+        const updatedMeal = await pool.query('UPDATE meals SET name = $1, ingredients = $2, prep_time = $3 WHERE name = $4 RETURNING *;', [obj.name, obj.ingredients, obj.prep_time, req.params.name])
         res.json(updatedMeal.rows)
     } catch (err) {
         console.error(err.message)
