@@ -1,5 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
     homePage()
+    GET()
 })
 
 const GET = async () => {
@@ -22,10 +23,35 @@ const POST = async (meal, ingredients, prep_time) => {
     })
 }
 
+const PATCH = async (meal, ingredients, prep_time, index) => {
+    const obj = {
+        "name": meal,
+        "ingredients": ingredients,
+        "prep_time": prep_time
+    }
+    const meals = await fetch(`http://localhost:8000/api/meals/${index}`, 
+    {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json; charset=UTF-8'},
+        body: JSON.stringify(obj)
+    })
+}
+
+const DELETE = async (name) => {
+    const meals = await fetch(`http://localhost:8000/api/meals/${name}`, 
+    {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json; charset=UTF-8'}
+    })
+}
+
+
 const homePage = async () => {
     const data = await GET()
     createDiv(data.length)
     divContent(data)
+    editMeal(document.querySelectorAll('#edit'))
+    deleteMeal(document.querySelectorAll('#remove'))
 }
 
 const shortPrep = async () => {
@@ -34,10 +60,10 @@ const shortPrep = async () => {
 }
 
 const shortPrepData = (data) => {
-    let obj = {};
     let arr = [];
     for (let i = 0; i < data.length; i++) {
         if (data[i].prep_time < 60) {
+            let obj = {};
             obj.name = data[i].name
             obj.ingredients = data[i].ingredients
             obj.prep_time = data[i].prep_time
@@ -54,10 +80,10 @@ const mediumPrep = async () => {
 }
 
 const mediumPrepData = (data) => {
-    let obj = {};
     let arr = [];
     for (let i = 0; i < data.length; i++) {
         if (data[i].prep_time >= 60 && data[i].prep_time < 120) {
+            let obj = {};
             obj.name = data[i].name
             obj.ingredients = data[i].ingredients
             obj.prep_time = data[i].prep_time
@@ -74,10 +100,10 @@ const longPrep = async () => {
 }
 
 const longPrepData = (data) => {
-    let obj = {};
     let arr = [];
     for (let i = 0; i < data.length; i++) {
         if (data[i].prep_time >= 120) {
+            let obj = {};
             obj.name = data[i].name
             obj.ingredients = data[i].ingredients
             obj.prep_time = data[i].prep_time
@@ -94,6 +120,7 @@ const createDiv = (num) => {
         let cardContainer = document.createElement('div')
         let div = document.createElement('div')
         cardContainer.className = 'holder'
+        cardContainer.id = 'meal' + i
         div.id = i
         div.className = 'card'
         cardContainer.appendChild(div)
@@ -115,9 +142,9 @@ const divContent = (data) => {
         p.textContent = `Ingredients: ${data[i].ingredients}`
         p2.textContent = `Prep Time: ${data[i].prep_time} mins`
 
-        p.appendChild(p2)
-        h1.appendChild(p)
         current.appendChild(h1)
+        current.appendChild(p)
+        current.appendChild(p2)
     }
 }
 
@@ -150,9 +177,9 @@ home.addEventListener('click', () => {
 })
 
 const create = document.querySelector('#create')
-const modal = document.getElementById("myModal")
-create.addEventListener('click', () => {
-    modal.style.display = "block";
+const modal = document.getElementById('myModal')
+create.addEventListener('click', (e) => {
+    addMeal(e);
 })
 
 const span = document.getElementsByClassName("close")[0];
@@ -191,4 +218,51 @@ const addOverlay = (holder) => {
     })
 }
 
+const editMeal = (meal) => {
+    meal.forEach(meals => {
+        meals.addEventListener('click', (e) => {
+            const div = meals.parentNode.parentNode.childNodes[0]
+            values(div)
+            console.log(e.target)
+            //console.log(document.getElementById('1').childNodes[0])
+            const modal = document.getElementById("myModal")
+            modal.style.display = "block";
+        })
+    })
 
+}
+
+const values = (div) => {
+    const name = document.getElementById('1').childNodes[0].textContent
+    const ingredients = document.getElementById('1').childNodes[1].textContent
+    const prepTime = document.getElementById('1').childNodes[2].textContent
+    document.querySelector('#meal-name').value = name
+    document.querySelector('#ingredients').value = ingredients
+    document.querySelector('#prep-time').value = prepTime
+}
+
+const deleteMeal = (meal) => {
+    meal.forEach(meals => {
+        meals.addEventListener('click', (e) => {
+            const name = e.target.parentNode.parentNode.childNodes[0].childNodes[0].textContent
+            DELETE(name)
+            {location.reload()}
+        })
+    })
+}
+
+// const addMeal = () => {
+//     const create = document.querySelector('#create')
+//     const modal = document.getElementById("myModal")
+//     create.addEventListener('click', () => {
+//     modal.style.display = "block"
+// })
+// }
+
+//create a function for creating a meal
+//add
+const addMeal = (e) => {
+    console.log(e.currentTarget)
+    const modal = document.getElementById('myModal')
+    modal.style.display = 'block'
+}
