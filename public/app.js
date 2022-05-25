@@ -8,6 +8,12 @@ const GET = async () => {
     return data
 }
 
+const GETone = async (name) => {
+    let result = await fetch(`http://localhost:8000/api/meals/${name}`)
+    let data = await result.json()
+    searchedItem(data)
+}
+
 const POST = async (meal, ingredients, prep_time) => {
     const obj = {
         "name": meal,
@@ -22,14 +28,14 @@ const POST = async (meal, ingredients, prep_time) => {
     })
 }
 
-const PATCH = async (meal, ingredients, prep_time) => {
+const PATCH = async (meal, ingredients, prep_time, name) => {
     const obj = {
         "name": meal,
         "ingredients": ingredients,
         "prep_time": prep_time
     }
     console.log(obj)
-    const meals = await fetch(`http://localhost:8000/api/meals/${meal}`, 
+    const meals = await fetch(`http://localhost:8000/api/meals/${name}`, 
     {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json; charset=UTF-8'},
@@ -45,19 +51,22 @@ const DELETE = async (name) => {
     })
 }
 
+const editter = () => {
+    editMeal(document.querySelectorAll('#edit'))
+    deleteMeal(document.querySelectorAll('#remove'))
+}
 
 const homePage = async () => {
     const data = await GET()
-    // console.log(await PATCH('mean', 'moon', 31))
     createDiv(data.length)
     divContent(data)
-    editMeal(document.querySelectorAll('#edit'))
-    deleteMeal(document.querySelectorAll('#remove'))
+    editter()
 }
 
 const shortPrep = async () => {
     const data = await GET()
     shortPrepData(data)
+    editter()
 }
 
 const shortPrepData = (data) => {
@@ -78,6 +87,7 @@ const shortPrepData = (data) => {
 const mediumPrep = async () => {
     const data = await GET()
     mediumPrepData(data)
+    editter()
 }
 
 const mediumPrepData = (data) => {
@@ -98,6 +108,7 @@ const mediumPrepData = (data) => {
 const longPrep = async () => {
     const data = await GET();
     longPrepData(data)
+    editter()
 }
 
 const longPrepData = (data) => {
@@ -113,6 +124,27 @@ const longPrepData = (data) => {
     }
     createDiv(arr.length)
     divContent(arr)
+    editter()
+}
+
+const searchedItem = (data) => {
+    createDiv(data.length)
+    console.log(data.name)
+    let card = document.querySelectorAll('.card')
+    for (let i = 0; i < card.length; i++) {
+        let current = card[i]
+        let h1 = document.createElement('h1')
+        let p = document.createElement('p')
+        let p2 = document.createElement('p')
+        h1.textContent = data[0].name
+        p.textContent = `Ingredients: ${data[0].ingredients}`
+        p2.textContent = `Prep Time: ${data[0].prep_time} mins`
+
+        current.appendChild(h1)
+        current.appendChild(p)
+        current.appendChild(p2)
+    }
+    editter()
 }
 
 const createDiv = (num) => {
@@ -183,6 +215,31 @@ create.addEventListener('click', (e) => {
     submitM(e);
 })
 
+
+const confirmButton = () => {
+    const confirm = document.getElementById('confirm')
+    const submit = document.getElementById('submit')
+    submit.classList.add('confirm')
+    confirm.classList.remove('confirm')
+}
+
+const submitButton = () => {
+    const confirm = document.getElementById('confirm')
+    const submit = document.getElementById('submit')
+    confirm.classList.add('confirm')
+    submit.classList.remove('confirm')
+}
+
+const search = document.getElementById('search')
+search.addEventListener('keypress', (e) => {
+    if (e.key === "Enter") {
+        let container = document.querySelector('.container')
+        container.innerHTML = ''
+        GETone(search.value)
+        search.value = ''
+    }
+})
+
 const span = document.getElementsByClassName("close")[0];
 span.addEventListener('click', () => {
     document.querySelector('#meal-name').value = ''
@@ -207,10 +264,18 @@ const createOverlay = (holder) => {
         remove.id = 'remove'
         remove.textContent = 'delete'
 
-        overlay.appendChild(remove)
         overlay.appendChild(edit)
+        overlay.appendChild(remove)
         elem.appendChild(overlay)
     })
+}
+
+const submitM = (e) => {
+    console.log(e.currentTarget)
+    const modal = document.getElementById('myModal')
+    modal.style.display = 'block'
+    submitButton()
+    addMeal()
 }
 
 const editMeal = (meal) => {
@@ -223,24 +288,9 @@ const editMeal = (meal) => {
             const ing = e.target.parentNode.parentNode.childNodes[0].childNodes[1].textContent
             const prep = e.target.parentNode.parentNode.childNodes[0].childNodes[2].textContent
             parsingMeal(name, ing, prep)
-            submitEdits()
         })
     })
 
-}
-
-const confirmButton = () => {
-    const confirm = document.getElementById('confirm')
-    const submit = document.getElementById('submit')
-    submit.classList.add('confirm')
-    confirm.classList.remove('confirm')
-}
-
-const submitButton = () => {
-    const confirm = document.getElementById('confirm')
-    const submit = document.getElementById('submit')
-    confirm.classList.add('confirm')
-    submit.classList.remove('confirm')
 }
 
 const parsingMeal = (name, ing, prep) => {
@@ -264,6 +314,7 @@ const parsingMeal = (name, ing, prep) => {
     document.querySelector('#meal-name').value = name
     document.querySelector('#ingredients').value = ing.join(' ')
     document.querySelector('#prep-time').value = prep.join(' ')
+    submitEdits(name)
 }
 
 const deleteMeal = (meal) => {
@@ -276,21 +327,13 @@ const deleteMeal = (meal) => {
     })
 }
 
-const submitM = (e) => {
-    console.log(e.currentTarget)
-    const modal = document.getElementById('myModal')
-    modal.style.display = 'block'
-    submitButton()
-    addMeal()
-}
-
-const submitEdits = () => {
+const submitEdits = (name) => {
     const confirm = document.getElementById("confirm")
     confirm.addEventListener('click', (e) => {
         const meal = document.querySelector('#meal-name').value
         const ingredients = document.querySelector('#ingredients').value
         const prep_time = document.querySelector('#prep-time').value
-        PATCH(meal, ingredients, prep_time)
+        PATCH(meal, ingredients, prep_time, name)
         {location.reload()}
     })
 }
