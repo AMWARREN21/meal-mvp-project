@@ -12,8 +12,10 @@ app.use(express.static("public"));
 //get all
 app.get('/api/meals', async(req,res) => {
     try {
-        const data = await pool.query('SELECT * FROM meals;')
+        const client = await pool.connect()
+        const data = await client.query('SELECT * FROM meals;')
         res.json(data.rows)
+        client.release();
     } catch (err) {
         console.error(err.message)
     }
