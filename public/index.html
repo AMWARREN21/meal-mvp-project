@@ -5,13 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link defer rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rancho&family=Rye&family=Smooch&display=swap" rel="stylesheet">    
     <script defer src="app.js"></script>
     <title>Document</title>
 </head>
 <body>
     <div class="page">
         <div class="header">
-            <h1 id="home" class="title main">Meal Randomizer</h1>
+            <h1 id="home" class="title main">All Recipes</h1>
+                <input id="search" type="text" placeholder="Search..">
             <div class="buttons">
                 <h1 id="short" class="title prep">Short Prep</h1>
                 <h1 id="medium" class="title prep">Medium Prep</h1>
@@ -39,7 +43,7 @@
                                     <input type="text" id="prep-time" placeholder="Prep Time" require="">
                                 </div>
                                 <input id="submit" type="submit" data-target="#moo">
-                                <input id="confirm" class="confirm" type="submit" value="confirm" data-target="#moo">
+                                <input id="confirm" class="confirm" type="submit" value="confirm">
                             </form>
                         </div>
                     </div>
