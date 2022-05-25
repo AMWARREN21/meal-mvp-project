@@ -91,11 +91,16 @@ const longPrepData = (data) => {
 const createDiv = (num) => {
     let content = document.querySelector('.container')
     for (let i = 1; i <= num; i++) {
+        let cardContainer = document.createElement('div')
         let div = document.createElement('div')
+        cardContainer.className = 'holder'
         div.id = i
         div.className = 'card'
-        content.appendChild(div)
+        cardContainer.appendChild(div)
+        content.appendChild(cardContainer)
     }
+    let holder = document.querySelectorAll('.holder')
+    addOverlay(holder)
 }
 
 const divContent = (data) => {
@@ -164,5 +169,26 @@ submit.addEventListener('click', () => {
     reload()
 })
 
+const addOverlay = (holder) => {
+    holder.forEach(elem => {
+        let overlay = document.createElement('div')
+        let edit = document.createElement('div')
+        let remove = document.createElement('div')
+
+        overlay.className = 'overlay'
+
+        edit.className = 'change'
+        edit.id = 'edit'
+        edit.textContent = 'edit'
+
+        remove.className = 'change'
+        remove.id = 'remove'
+        remove.textContent = 'delete'
+
+        overlay.appendChild(remove)
+        overlay.appendChild(edit)
+        elem.appendChild(overlay)
+    })
+}
 
 
