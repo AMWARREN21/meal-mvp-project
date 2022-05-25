@@ -8,6 +8,20 @@ const GET = async () => {
     return data
 }
 
+const POST = async (meal, ingredients, prep_time) => {
+    const obj = {
+        "name": meal,
+        "ingredients": ingredients,
+        "prep_time": prep_time
+    }
+    const meals = await fetch('http://localhost:8000/api/meals', 
+    {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=UTF-8'},
+        body: JSON.stringify(obj)
+    })
+}
+
 const homePage = async () => {
     const data = await GET()
     createDiv(data.length)
@@ -79,15 +93,18 @@ const createDiv = (num) => {
     for (let i = 1; i <= num; i++) {
         let div = document.createElement('div')
         div.id = i
-        div.className = 'card'
-        content.appendChild(div)
+        div.className = 'meal'
+        
+        span.appendChild(div)
+        content.appendChild(span)
     }
 }
 
 const divContent = (data) => {
-    let card = document.querySelectorAll('.card')
-    for (let i = 0; i < card.length; i++) {
-        let current = card[i]
+    let meal = document.querySelectorAll('.meal')
+    eventListener(meal)
+    for (let i = 0; i < meal.length; i++) {
+        let current = meal[i]
         let h1 = document.createElement('h1')
         let p = document.createElement('p')
         let p2 = document.createElement('p')
@@ -150,20 +167,5 @@ submit.addEventListener('click', () => {
     reload()
 })
 
-const POST = async (meal, ingredients, prep_time) => {
-
-    const obj = {
-        "name": meal,
-        "ingredients": ingredients,
-        "prep_time": prep_time
-    }
-
-    const meals = await fetch('http://localhost:8000/api/meals', 
-    {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json; charset=UTF-8'},
-        body: JSON.stringify(obj)
-    })
-}
 
 
