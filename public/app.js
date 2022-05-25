@@ -93,17 +93,15 @@ const createDiv = (num) => {
     for (let i = 1; i <= num; i++) {
         let div = document.createElement('div')
         div.id = i
-        div.className = 'meal'
-
-        span.appendChild(div)
-        content.appendChild(span)
+        div.className = 'card'
+        content.appendChild(div)
     }
 }
 
 const divContent = (data) => {
-    let meal = document.querySelectorAll('.meal')
-    for (let i = 0; i < meal.length; i++) {
-        let current = meal[i]
+    let card = document.querySelectorAll('.card')
+    for (let i = 0; i < card.length; i++) {
+        let current = card[i]
         let h1 = document.createElement('h1')
         let p = document.createElement('p')
         let p2 = document.createElement('p')
