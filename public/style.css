@@ -182,3 +182,6 @@ input[type=submit] {
 }
 
 
+.confirm {
+    display: none;
+}
