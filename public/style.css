@@ -3,8 +3,9 @@ body {
 }
 
 .page {
-    position: relative;
-    min-height: 100vh;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto minmax(46.5vw, auto) auto;
 }
 
 .header {
@@ -60,11 +61,12 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    overflow: auto;
 }
 
 .container > .card {
-    height: 23rem;
-    width: 22rem;
+    height: 22rem;
+    width: 21rem;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     text-align: center;   
     padding: 5px;
@@ -82,7 +84,8 @@ body {
 }
 
 .footer {
-    position: absolute;
+    margin-top: 10px;
+    margin-bottom: 0;
     bottom: 0;
     width: 100%;
     background-color: black;
@@ -92,6 +95,7 @@ body {
 .footer > .slogan {
     text-align: center;
     color: white;
+    margin: 0;
 }
 
 .modal {
