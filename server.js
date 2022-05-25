@@ -20,9 +20,9 @@ app.get('/api/meals', async(req,res) => {
 });
 
 //get one
-app.get('/api/meals/:id', async(req,res) => {
+app.get('/api/meals/:name', async(req,res) => {
     try {
-        const data = await pool.query('SELECT * FROM meals WHERE meal_id = $1;', [req.params.id])
+        const data = await pool.query('SELECT * FROM meals WHERE name = $1;', [req.params.name])
         res.json(data.rows)
     } catch (err) {
         console.error(err.message)
