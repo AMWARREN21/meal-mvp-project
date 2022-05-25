@@ -219,15 +219,15 @@ create.addEventListener('click', (e) => {
 const confirmButton = () => {
     const confirm = document.getElementById('confirm')
     const submit = document.getElementById('submit')
-    submit.classList.add('confirm')
-    confirm.classList.remove('confirm')
+    submit.classList.add('invisible')
+    confirm.classList.remove('invisible')
 }
 
 const submitButton = () => {
     const confirm = document.getElementById('confirm')
     const submit = document.getElementById('submit')
-    confirm.classList.add('confirm')
-    submit.classList.remove('confirm')
+    confirm.classList.add('invisible')
+    submit.classList.remove('invisible')
 }
 
 const search = document.getElementById('search')
