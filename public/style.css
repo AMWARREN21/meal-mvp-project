@@ -128,3 +128,14 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
+input[type=text] {
+    height:30px;
+    margin: 20px;
+    align-self: center;
+}
+input[type=submit] {
+    padding: 5px;
+    text-align: center;
+}
+
+
