@@ -9,7 +9,7 @@ const GET = async () => {
 }
 
 const GETone = async (name) => {
-    let result = await fetch(`http://localhost:8000/api/meals/${name}`)
+    let result = await fetch(`https://mealstorage.herokuapp.com/api/meals/${name}`)
     let data = await result.json()
     searchedItem(data)
 }
@@ -20,7 +20,7 @@ const POST = async (meal, ingredients, prep_time) => {
         "ingredients": ingredients,
         "prep_time": prep_time
     }
-    const meals = await fetch('http://localhost:8000/api/meals', 
+    const meals = await fetch('https://mealstorage.herokuapp.com/api/meals', 
     {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=UTF-8'},
@@ -35,7 +35,7 @@ const PATCH = async (meal, ingredients, prep_time, name) => {
         "prep_time": prep_time
     }
     console.log(obj)
-    const meals = await fetch(`http://localhost:8000/api/meals/${name}`, 
+    const meals = await fetch(`https://mealstorage.herokuapp.com/api/meals/${name}`, 
     {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json; charset=UTF-8'},
@@ -44,7 +44,7 @@ const PATCH = async (meal, ingredients, prep_time, name) => {
 }
 
 const DELETE = async (name) => {
-    const meals = await fetch(`http://localhost:8000/api/meals/${name}`, 
+    const meals = await fetch(`https://mealstorage.herokuapp.com/api/meals/${name}`, 
     {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json; charset=UTF-8'}
