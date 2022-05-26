@@ -3,7 +3,7 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 const GET = async () => {
-    let result = await fetch('http://localhost:8000/api/meals')
+    let result = await fetch('https://mealstorage.herokuapp.com//api/meals')
     let data = await result.json()
     return data
 }
