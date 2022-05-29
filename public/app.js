@@ -3,6 +3,7 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 const server = window.location.origin;
+console.log(server)
 
 const GET = async () => {
     let result = await fetch(`${server}/api/meals`)
