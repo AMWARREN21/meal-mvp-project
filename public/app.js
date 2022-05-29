@@ -188,6 +188,7 @@ const short = document.querySelector('#short')
 short.addEventListener('click', () => {
     let container = document.querySelector('.container')
     container.innerHTML = ''
+    searches.style.display = 'none'
     shortPrep()
 })
 
@@ -195,6 +196,7 @@ const medium = document.querySelector('#medium')
 medium.addEventListener('click', () => {
     let container = document.querySelector('.container')
     container.innerHTML = ''
+    searches.style.display = 'none'
     mediumPrep()
 })
 
@@ -202,6 +204,7 @@ const long = document.querySelector('#long')
 long.addEventListener('click', () => {
     let container = document.querySelector('.container')
     container.innerHTML = ''
+    searches.style.display = 'none'
     longPrep()
 })
 
@@ -209,6 +212,7 @@ const home = document.querySelector('#home')
 home.addEventListener('click', () => {
     let container = document.querySelector('.container')
     container.innerHTML = ''
+    searches.style.display = 'none'
     homePage()
 })
 
@@ -240,6 +244,7 @@ search.addEventListener('keypress', (e) => {
         container.innerHTML = ''
         GETone(search.value)
         search.value = ''
+        searches.style.display = 'none'
     }
 })
 
@@ -343,3 +348,13 @@ const addMeal = () => {
         POST(meal, ingredients, prep_time)
     })
 }
+
+const icon = document.querySelector('.icon')
+const searches = document.querySelector('.searches')
+icon.addEventListener('click', () => {
+    if (searches.style.display === 'block') {
+        searches.style.display = 'none'
+    } else {
+        searches.style.display = 'block'
+    }
+})
