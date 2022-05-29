@@ -7,7 +7,8 @@
     <link defer rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rancho&family=Rye&family=Smooch&display=swap" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css2?family=Rancho&family=Rye&family=Smooch&display=swap" rel="stylesheet">   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
     <script defer src="app.js"></script>
     <title>Document</title>
 </head>
@@ -17,18 +18,20 @@
             <h1 id="home" class="title main">All Recipes</h1>
             <div class="searches">
                 <div class="buttons">
+                    <input id="search" type="text" placeholder="Search.." autocomplete="off">
                     <a id="short" class="title">Short Prep</a>
                     <a id="medium" class="title">Medium Prep</a>
                     <a id="long" class="title">Long Prep</a>
                     <a id="create" class="title">Create Meal</a>
                 </div>
-                <input id="search" type="text" placeholder="Search..">
             </div>
+            <a href="javascript:void(0);" class="icon">
+                <i class="fa fa-bars"></i>
+            </a>
         </div>
         <div class="content">
-            <div class="modal-container">
                 <div id="myModal" class="modal-overlay">
-                    <div class="modal-content" id="moo">
+                    <div class="modal-content">
                         <span class="close">&times;</span>
                         <div class="modal-body">
                             <form id="inputs">
@@ -50,7 +53,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
             <div class="container">
 
             </div>
