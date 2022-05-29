@@ -9,6 +9,9 @@ body {
 }
 
 .header {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
     background-color: black;
     padding: .3rem;
 }
@@ -98,7 +101,7 @@ body {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1; 
+    /* z-index: 1;  */
     left: 0;
     top: 0;
     width: 100%;
@@ -204,4 +207,8 @@ input[type=submit] {
 ::placeholder {
     font-family: "rancho", cursive;
     font-size: 1.5rem;
+}
+
+.container {
+    padding-top: 7rem;
 }
