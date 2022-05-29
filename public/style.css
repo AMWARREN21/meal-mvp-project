@@ -17,6 +17,7 @@ body {
     width: 100%;
     background-color: black;
     padding: .3rem;
+    overflow: hidden;
 }
 
 .header > .main {
@@ -32,24 +33,41 @@ body {
     font-size: 1.3rem;
 }
 
-.searches {
+.icon {
+    color:white;
+    font-size: 1.5rem;
+    transform: translate(-30px, 10px);
+}
+.buttons {
     display: flex;
-    gap: 15px;
-    justify-content: flex-end;
-    align-items: flex-end;
+    flex-direction: column;
+}
+.searches {
+    left:0;
+    position: fixed;
+    min-width: 100vw;
+    padding: 14px 16px;
+    max-height: 14rem;
+    background-color: black;
+    transform: translateY(45px);
     color: white;
     font-family: "Smooch", cursive;
     font-size: .7rem;
+    display: none;
 }
 
 #search {
     transform: translateY(-10%);
+    max-width: 20%;
+    background-color: black;
+    border-bottom: 2px solid white;
+    color:white;
 }
 
 
 .header input[type=text] {
-    float: right;
     border: none;
+    outline: none;
     margin-top: 8px;
     margin-right: 16px;
     margin-bottom: auto;
@@ -203,7 +221,6 @@ body {
 }
 
 .modal-body input[type=text], .modal-body input[type=number] {
-    /* max-height: 2000px; */
     min-width: 80%;
     margin: 20px;
     align-self: center;
