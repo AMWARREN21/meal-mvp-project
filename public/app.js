@@ -296,17 +296,17 @@ const editMeal = (meal) => {
 const parsingMeal = (name, ing, prep) => {
 
     ing = ing.split(' ')
-    for (let i = 0; i < ing.length; i++) {
+    for (let i = ing.length; i >= 0; i--) {
         if (ing[i] === 'Ingredients:') {
-            delete ing[i]
+            ing.splice(i, 1)
         }
         ing.join(' ')
     }
 
     prep = prep.split(' ')
-    for (let i = 0; i < prep.length; i++) {
+    for (let i = prep.length; i >= 0; i--) {
         if (prep[i] === 'Prep' || prep[i] === 'Time:' || prep[i] === 'mins') {
-            delete prep[i]
+            prep.splice(i, 1)
         }
         prep.join(' ')
     }
