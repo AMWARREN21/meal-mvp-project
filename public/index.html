@@ -15,12 +15,14 @@
     <div class="page">
         <div class="header">
             <h1 id="home" class="title main">All Recipes</h1>
+            <div class="searches">
+                <div class="buttons">
+                    <a id="short" class="title">Short Prep</a>
+                    <a id="medium" class="title">Medium Prep</a>
+                    <a id="long" class="title">Long Prep</a>
+                    <a id="create" class="title">Create Meal</a>
+                </div>
                 <input id="search" type="text" placeholder="Search..">
-            <div class="buttons">
-                <h1 id="short" class="title">Short Prep</h1>
-                <h1 id="medium" class="title">Medium Prep</h1>
-                <h1 id="long" class="title">Long Prep</h1>
-                <h1 id="create" class="title">Create Meal</h1>
             </div>
         </div>
         <div class="content">
@@ -32,15 +34,15 @@
                             <form id="inputs">
                                 <div class="inputBox">
                                     <label for="meal-name">Meal Name</label>
-                                    <input type="text" id="meal-name" placeholder="Meal Name" required="">
+                                    <input type="text" id="meal-name" placeholder="Meal Name" required="" autocomplete="off">
                                 </div>
-                                <div class="inputBox">
+                                <div class="inputBox ingredients">
                                     <label for="ingredients">Ingredients</label>
-                                    <input type="text" id="ingredients" placeholder="Ingredients" required="">
+                                    <input type="text" id="ingredients" placeholder="Ingredients" required="" autocomplete="off">
                                 </div>
                                 <div class="inputBox">
-                                    <label for="prep-time">Prep Time (In Minutes)</label>
-                                    <input type="text" id="prep-time" placeholder="Prep Time" require="">
+                                    <label for="prep-time">Prep Time</label>
+                                    <input type="number" id="prep-time" placeholder="Minutes" require="" autocomplete="off">
                                 </div>
                                 <input id="submit" type="submit">
                                 <input id="confirm" class="invisible" type="submit" value="confirm">
