@@ -112,7 +112,7 @@ body {
     box-shadow: 2px 3px 8px rgb(50, 50, 50);
 }
 
-.modal {
+.modal-overlay {
     display: none;
     position: fixed;
     z-index: 1; 
@@ -126,19 +126,23 @@ body {
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 30vw; 
-    height: 45vh;
+    max-width: 35vw;
+    transition: all 200ms ease-in-out;
     font-family: "Rye", cursive;
     font-size: 1.3rem;
+    bottom: 0;
+    left: 0;
+    transform: translate(13px, 80px);
 }
 
-#ingredients {
-    border: none;
-    border-bottom: 1px solid blue;
-
+@media (max-width: 40em) {
+    .modal-content {
+        transform: translate(0px, 80px);
+        max-width: 80vw;
+    }
 }
 
 .close {
@@ -172,7 +176,7 @@ body {
     backface-visibility: hidden;
 }
 
-.overlay {
+.change-overlay {
     transition: .5s ease;
     opacity: 0;
     position: absolute;
@@ -185,7 +189,7 @@ body {
     opacity: .3
 }
 
-.holder:hover .overlay {
+.holder:hover .change-overlay {
     opacity: 1
 }
 
@@ -198,9 +202,9 @@ body {
     margin: 10px
 }
 
-input[type=text], input[type=number] {
-    height: 35px;
-    width: 20rem;
+.modal-body input[type=text], .modal-body input[type=number] {
+    /* max-height: 2000px; */
+    min-width: 80%;
     margin: 20px;
     align-self: center;
     border: none;
