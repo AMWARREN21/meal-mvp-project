@@ -2,14 +2,16 @@ window.addEventListener('DOMContentLoaded', () => {
     homePage()
 })
 
+const server = window.location.origin;
+
 const GET = async () => {
-    let result = await fetch('http://localhost:8000/api/meals')
+    let result = await fetch(`${server}/api/meals`)
     let data = await result.json()
     return data
 }
 
 const GETone = async (name) => {
-    let result = await fetch(`http://localhost:8000/api/meals/${name}`)
+    let result = await fetch(`${server}/api/meals/${name}`)
     let data = await result.json()
     searchedItem(data)
 }
@@ -20,7 +22,7 @@ const POST = async (meal, ingredients, prep_time) => {
         "ingredients": ingredients,
         "prep_time": prep_time
     }
-    const meals = await fetch('http://localhost:8000//api/meals', 
+    const meals = await fetch(`${server}/api/meals`, 
     {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=UTF-8'},
@@ -35,7 +37,7 @@ const PATCH = async (meal, ingredients, prep_time, name) => {
         "prep_time": prep_time
     }
     console.log(obj)
-    const meals = await fetch(`http://localhost:8000/api/meals/${name}`, 
+    const meals = await fetch(`${server}/api/meals/${name}`, 
     {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json; charset=UTF-8'},
@@ -44,7 +46,7 @@ const PATCH = async (meal, ingredients, prep_time, name) => {
 }
 
 const DELETE = async (name) => {
-    const meals = await fetch(`http://localhost:8000/api/meals/${name}`, 
+    const meals = await fetch(`${server}/api/meals/${name}`, 
     {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json; charset=UTF-8'}
@@ -254,7 +256,7 @@ const createOverlay = (holder) => {
         let edit = document.createElement('div')
         let remove = document.createElement('div')
 
-        overlay.className = 'overlay'
+        overlay.className = 'change-overlay'
 
         edit.className = 'change'
         edit.id = 'edit'
@@ -302,18 +304,11 @@ const parsingMeal = (name, ing, prep) => {
         }
         ing.join(' ')
     }
-
     prep = prep.split(' ')
-    for (let i = prep.length; i >= 0; i--) {
-        if (prep[i] === 'Prep' || prep[i] === 'Time:' || prep[i] === 'mins') {
-            prep.splice(i, 1)
-        }
-        prep.join(' ')
-    }
 
     document.querySelector('#meal-name').value = name
     document.querySelector('#ingredients').value = ing.join(' ')
-    document.querySelector('#prep-time').value = prep.join(' ')
+    document.querySelector('#prep-time').value = Number(prep[2])
     submitEdits(name)
 }
 
