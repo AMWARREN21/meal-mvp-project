@@ -4,11 +4,15 @@
 ![home](https://user-images.githubusercontent.com/99050358/189724318-5960238e-abf4-4be6-b4cd-27c23457daad.png)
 
 CookBook was built while attending Galvanize: Operation Level-Up. The objective of this project was to create a Full Stack JavaScript Application that gave users full CRUD functionality. The inspiration behind this project was my inability to keep track of the few reciepes I know.
+<br>
+Deployed URL: https://mealstorage.herokuapp.com/
 
 ### Built With
 **Front-End**: JavaScript, HTML5, and CSS3
 <br>
 **Back-End**: Node.js, Express.js, and PostgreSQL
+<br>
+**Deployed**: Heroku
 
 ## Getting Started
 
