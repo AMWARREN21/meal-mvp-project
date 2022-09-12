@@ -1,7 +1,7 @@
 ## About This Project
 <br>
 
-![CookBook](https://user-images.githubusercontent.com/99050358/189719489-291b9f8b-a602-45f1-bbdf-24ae09f7c703.jpeg)
+![home](https://user-images.githubusercontent.com/99050358/189724318-5960238e-abf4-4be6-b4cd-27c23457daad.png)
 
 CookBook was built while attending Galvanize: Operation Level-Up. The objective of this project was to create a Full Stack JavaScript Application that gave users full CRUD functionality. The inspiration behind this project was my inability to keep track of the few reciepes I know.
 
